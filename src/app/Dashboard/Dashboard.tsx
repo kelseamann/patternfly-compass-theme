@@ -7,11 +7,6 @@ import {
   CompassContent,
   CompassMainHeader,
   CompassPanel,
-  DataList,
-  DataListCell,
-  DataListItem,
-  DataListItemCells,
-  DataListItemRow,
   DescriptionList,
   DescriptionListDescription,
   DescriptionListGroup,
@@ -158,103 +153,7 @@ const Dashboard: React.FunctionComponent = () => (
               </DescriptionList>
             </CardBody>
           </Card>
-        </GridItem>
-
-        {/* Recent Activity */}
-        <GridItem span={12}>
-          <Card>
-            <CardTitle>Recent Activity</CardTitle>
-            <CardBody>
-              <DataList aria-label="Recent activity data list" isCompact>
-                <DataListItem>
-                  <DataListItemRow>
-                    <DataListItemCells
-                      dataListCells={[
-                        <DataListCell key="event1-time" width={2}>
-                          <strong>2 mins ago</strong>
-                        </DataListCell>,
-                        <DataListCell key="event1-status">
-                          <Label color="green" icon={<CheckCircleIcon />}>
-                            Success
-                          </Label>
-                        </DataListCell>,
-                        <DataListCell key="event1-desc">System backup completed successfully</DataListCell>,
-                      ]}
-                    />
-                  </DataListItemRow>
-                </DataListItem>
-                <DataListItem>
-                  <DataListItemRow>
-                    <DataListItemCells
-                      dataListCells={[
-                        <DataListCell key="event2-time" width={2}>
-                          <strong>15 mins ago</strong>
-                        </DataListCell>,
-                        <DataListCell key="event2-status">
-                          <Label color="blue" icon={<InfoCircleIcon />}>
-                            Info
-                          </Label>
-                        </DataListCell>,
-                        <DataListCell key="event2-desc">New user registration: john.doe@example.com</DataListCell>,
-                      ]}
-                    />
-                  </DataListItemRow>
-                </DataListItem>
-                <DataListItem>
-                  <DataListItemRow>
-                    <DataListItemCells
-                      dataListCells={[
-                        <DataListCell key="event3-time" width={2}>
-                          <strong>1 hour ago</strong>
-                        </DataListCell>,
-                        <DataListCell key="event3-status">
-                          <Label color="green" icon={<CheckCircleIcon />}>
-                            Success
-                          </Label>
-                        </DataListCell>,
-                        <DataListCell key="event3-desc">Database optimization completed</DataListCell>,
-                      ]}
-                    />
-                  </DataListItemRow>
-                </DataListItem>
-                <DataListItem>
-                  <DataListItemRow>
-                    <DataListItemCells
-                      dataListCells={[
-                        <DataListCell key="event4-time" width={2}>
-                          <strong>2 hours ago</strong>
-                        </DataListCell>,
-                        <DataListCell key="event4-status">
-                          <Label color="orange" icon={<ExclamationTriangleIcon />}>
-                            Warning
-                          </Label>
-                        </DataListCell>,
-                        <DataListCell key="event4-desc">High memory usage detected (92%)</DataListCell>,
-                      ]}
-                    />
-                  </DataListItemRow>
-                </DataListItem>
-                <DataListItem>
-                  <DataListItemRow>
-                    <DataListItemCells
-                      dataListCells={[
-                        <DataListCell key="event5-time" width={2}>
-                          <strong>3 hours ago</strong>
-                        </DataListCell>,
-                        <DataListCell key="event5-status">
-                          <Label color="green" icon={<CheckCircleIcon />}>
-                            Success
-                          </Label>
-                        </DataListCell>,
-                        <DataListCell key="event5-desc">Security patch applied to all servers</DataListCell>,
-                      ]}
-                    />
-                  </DataListItemRow>
-                </DataListItem>
-              </DataList>
-            </CardBody>
-          </Card>
-        </GridItem>
+        </GridItem>        
       </Grid>
     </CompassPanel>
   </CompassContent>
