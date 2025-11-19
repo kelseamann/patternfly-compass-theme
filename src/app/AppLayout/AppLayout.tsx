@@ -25,7 +25,7 @@ import {
   TabsComponent,
   Tooltip,
 } from '@patternfly/react-core';
-import { MessageBar } from '@patternfly/chatbot';
+import { MessageBar } from '@patternfly/chatbot/dist/dynamic/MessageBar';
 import { useTheme } from '@app/utils/ThemeContext';
 import CubeIcon from '@patternfly/react-icons/dist/esm/icons/cube-icon';
 import HelpIcon from '@patternfly/react-icons/dist/esm/icons/help-icon';

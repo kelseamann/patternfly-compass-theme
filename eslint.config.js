@@ -1,6 +1,11 @@
 import tseslint from 'typescript-eslint';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export default {
   files: ['src/**/*.{js,jsx,ts,tsx}'],
@@ -8,7 +13,7 @@ export default {
     parser: tseslint.parser,
     parserOptions: {
       project: './tsconfig.json',
-      tsconfigRootDir: '.',
+      tsconfigRootDir: __dirname,
       ecmaFeatures: { jsx: true },
     },
   },

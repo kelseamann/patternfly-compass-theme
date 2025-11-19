@@ -12,13 +12,41 @@ export default merge(common('production'), {
   devtool: 'source-map',
   optimization: {
     minimizer: [
-      new TerserJSPlugin({}),
+      new TerserJSPlugin({
+        parallel: true,
+        terserOptions: {
+          compress: {
+            drop_console: true,
+          },
+        },
+      }),
       new CssMinimizerPlugin({
+        parallel: true,
         minimizerOptions: {
           preset: ['default', { mergeLonghand: false }],
         },
       }),
     ],
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          priority: 10,
+        },
+        patternfly: {
+          test: /[\\/]node_modules[\\/]@patternfly[\\/]/,
+          name: 'patternfly',
+          priority: 20,
+        },
+      },
+    },
+  },
+  performance: {
+    hints: 'warning',
+    maxAssetSize: 512000,
+    maxEntrypointSize: 512000,
   },
   plugins: [
     new MiniCssExtractPlugin({

@@ -9,3 +9,8 @@ storybook-static
 .idea
 .env
 .history
+
+# Build caches
+.cache
+node_modules/.cache
+*.tsbuildinfo

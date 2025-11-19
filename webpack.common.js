@@ -10,6 +10,12 @@ const ASSET_PATH = process.env.ASSET_PATH || '/';
 
 export default (env) => {
   return {
+    cache: {
+      type: 'filesystem',
+      buildDependencies: {
+        config: [import.meta.url],
+      },
+    },
     module: {
       rules: [
         {
