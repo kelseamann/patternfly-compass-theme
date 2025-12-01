@@ -9,7 +9,7 @@
   "scripts": {
     "prebuild": "npm run type-check && npm run clean",
     "build": "NODE_OPTIONS='--max-old-space-size=4096' webpack --config webpack.prod.js",
-    "build:gh-pages": "ASSET_PATH=/patternfly-compass-theme/ npm run build && touch dist/.nojekyll",
+    "build:gh-pages": "npm run clean && ASSET_PATH=/patternfly-compass-theme/ NODE_OPTIONS='--max-old-space-size=4096' webpack --config webpack.prod.js && touch dist/.nojekyll",
     "start": "sirv dist --cors --single --host --port 8080",
     "start:dev": "webpack serve --color --progress --config webpack.dev.js",
     "test": "vitest run",

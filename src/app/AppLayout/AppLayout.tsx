@@ -148,7 +148,7 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
         >
           <Flex alignItems={{ default: 'alignItemsCenter' }} gap={{ default: 'gapMd' }}>
             User Name
-            <Avatar src={avatarSvg} alt="User avatar" size="md" />
+            <Avatar src={avatarSvg.default} alt="User avatar" size="md" />
           </Flex>
         </MenuToggle>
       )}
@@ -218,8 +218,8 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
       sidebarStart={sidebarContent}
       main={children}
       sidebarEnd={sidebarContent}
-      backgroundSrcDark={pfBackground}
-      backgroundSrcLight={pfBackground}
+      backgroundSrcDark={pfBackground.default}
+      backgroundSrcLight={pfBackground.default}
     />
   );
 };

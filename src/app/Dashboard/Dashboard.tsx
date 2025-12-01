@@ -461,7 +461,6 @@ const Dashboard: React.FunctionComponent = () => {
                           <Label 
                             color={item.statusColor === 'green' ? 'green' : 'orange'}
                             icon={item.statusColor === 'green' ? <CheckCircleIcon /> : undefined}
-                            isFilled
                           >
                             {item.status}
                           </Label>
@@ -896,8 +895,6 @@ const Dashboard: React.FunctionComponent = () => {
         {/* Right Column - 0 CVEs Success Banner */}
         <GridItem lg={4} md={12}>
           <Card 
-            hasAiIndicator 
-            isThinking
             style={{ 
               background: 'linear-gradient(135deg, rgba(146, 212, 0, 0.3) 0%, rgba(146, 212, 0, 0.15) 40%, rgba(0, 0, 0, 0.4) 70%, rgba(146, 212, 0, 0.1) 100%)',
               height: 'calc(100vh - 685px)',
