@@ -33,26 +33,26 @@ const routes: AppRouteConfig[] = [
   {
     element: <Support />,
     exact: true,
-    label: 'Support',
+    label: 'Usage',
     path: '/support',
-    title: 'PatternFly Seed | Support Page',
+    title: 'PatternFly Seed | Usage Page',
   },
   {
-    label: 'Settings',
+    label: 'Security',
     routes: [
       {
         element: <GeneralSettings />,
         exact: true,
         label: 'General',
         path: '/settings/general',
-        title: 'PatternFly Seed | General Settings',
+        title: 'PatternFly Seed | General Security',
       },
       {
         element: <ProfileSettings />,
         exact: true,
         label: 'Profile',
         path: '/settings/profile',
-        title: 'PatternFly Seed | Profile Settings',
+        title: 'PatternFly Seed | Profile Security',
       },
     ],
   },
