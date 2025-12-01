@@ -17,7 +17,7 @@ const App: React.FunctionComponent = () => {
 
   return (
     <ThemeProvider>
-      <Router>
+      <Router basename="/patternfly-compass-theme">
         <AppLayout>
           <AppRoutes />
         </AppLayout>
