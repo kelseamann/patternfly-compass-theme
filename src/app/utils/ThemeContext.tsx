@@ -2,33 +2,21 @@ import * as React from 'react';
 
 interface ThemeContextType {
   isDarkTheme: boolean;
-  toggleTheme: () => void;
 }
 
 const ThemeContext = React.createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FunctionComponent<{ children: React.ReactNode }> = ({ children }) => {
-  const [isDarkTheme, setIsDarkTheme] = React.useState(() => {
-    const stored = localStorage.getItem('pf-theme');
-    return stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  });
+  // Always use dark theme
+  const isDarkTheme = true;
 
   React.useEffect(() => {
     const htmlElement = document.documentElement;
-    if (isDarkTheme) {
-      htmlElement.classList.add('pf-v6-theme-dark');
-      localStorage.setItem('pf-theme', 'dark');
-    } else {
-      htmlElement.classList.remove('pf-v6-theme-dark');
-      localStorage.setItem('pf-theme', 'light');
-    }
-  }, [isDarkTheme]);
-
-  const toggleTheme = React.useCallback(() => {
-    setIsDarkTheme((prev) => !prev);
+    htmlElement.classList.add('pf-v6-theme-dark');
+    localStorage.setItem('pf-theme', 'dark');
   }, []);
 
-  const value = React.useMemo(() => ({ isDarkTheme, toggleTheme }), [isDarkTheme, toggleTheme]);
+  const value = React.useMemo(() => ({ isDarkTheme }), [isDarkTheme]);
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };

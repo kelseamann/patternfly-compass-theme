@@ -24,11 +24,8 @@ import {
   TabsComponent,
   Tooltip,
 } from '@patternfly/react-core';
-import { useTheme } from '@app/utils/ThemeContext';
 import CubeIcon from '@patternfly/react-icons/dist/esm/icons/cube-icon';
 import HelpIcon from '@patternfly/react-icons/dist/esm/icons/help-icon';
-import MoonIcon from '@patternfly/react-icons/dist/esm/icons/moon-icon';
-import SunIcon from '@patternfly/react-icons/dist/esm/icons/sun-icon';
 import pfBackground from '../bgimages/pf-background.svg';
 import avatarSvg from '../bgimages/avatar.svg';
 
@@ -40,7 +37,6 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const subTabsRef = React.useRef<HTMLDivElement>(null);
-  const { isDarkTheme, toggleTheme } = useTheme();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Determine active tabs based on current route
@@ -170,18 +166,7 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
         <ActionListGroup>
           <ActionListItem>
             <Tooltip content="Help">
-              <Button isCircle  variant="plain" icon={<HelpIcon />} aria-label="Help" />
-            </Tooltip>
-          </ActionListItem>
-          <ActionListItem>
-            <Tooltip content={isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'}>
-              <Button
-                isCircle
-                variant="plain"
-                icon={isDarkTheme ? <SunIcon /> : <MoonIcon />}
-                aria-label={isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'}
-                onClick={toggleTheme}
-              />
+              <Button isCircle variant="plain" icon={<HelpIcon />} aria-label="Help" />
             </Tooltip>
           </ActionListItem>
         </ActionListGroup>
