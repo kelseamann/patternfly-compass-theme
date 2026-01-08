@@ -4,6 +4,7 @@ import {
   ActionList,
   ActionListGroup,
   ActionListItem,
+  Alert,
   Avatar,
   Button,
   Compass,
@@ -197,11 +198,25 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
     />
   );
 
+  const mainContent = (
+    <>
+      <Alert
+        variant="warning"
+        isInline
+        title="These mocks are outdated"
+        style={{ marginBottom: 'var(--pf-t--global--spacer--md)' }}
+      >
+        This demo contains custom styling that has been removed in the latest version. Please refer to the updated mocks in the patternfly-compass-seed-clean project.
+      </Alert>
+      {children}
+    </>
+  );
+
   return (
     <Compass
       header={headerContent}
       sidebarStart={sidebarContent}
-      main={children}
+      main={mainContent}
       sidebarEnd={sidebarContent}
       backgroundSrcDark={pfBackground.default}
       backgroundSrcLight={pfBackground.default}

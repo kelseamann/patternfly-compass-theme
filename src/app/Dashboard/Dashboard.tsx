@@ -24,13 +24,38 @@ import { CheckCircleIcon, EllipsisVIcon, ExternalLinkAltIcon, InfoCircleIcon } f
 import { Table, Thead, Tr, Th, Tbody, Td } from '@patternfly/react-table';
 
 const Dashboard: React.FunctionComponent = () => {
-  const [isProcessing] = React.useState(true);
+  const [isScanning, setIsScanning] = React.useState(false);
+  const [elapsedSeconds, setElapsedSeconds] = React.useState(0);
   const [fipsAdded, setFipsAdded] = React.useState(false);
   const [goAdded, setGoAdded] = React.useState(false);
   const [shellAdded, setShellAdded] = React.useState(false);
   const [getStartedSearchValue, setGetStartedSearchValue] = React.useState('');
   const [activeTabKey, setActiveTabKey] = React.useState<string | number>(0);
   const [copyAllSuccess, setCopyAllSuccess] = React.useState(false);
+
+  // Timer for elapsed time and periodic scanning animation
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setElapsedSeconds((prev) => {
+        const newValue = prev + 1;
+        // Trigger scanning animation every 30 seconds
+        if (newValue % 30 === 0) {
+          setIsScanning(true);
+          // Turn off after 3 seconds
+          setTimeout(() => setIsScanning(false), 3000);
+        }
+        return newValue;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatElapsedTime = (totalSeconds: number) => {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
 
   // Add gradient animation CSS and table row transparency
   React.useEffect(() => {
@@ -894,49 +919,63 @@ const Dashboard: React.FunctionComponent = () => {
 
         {/* Right Column - 0 CVEs Success Banner */}
         <GridItem lg={4} md={12}>
-          <Card 
-            style={{ 
-              background: 'linear-gradient(135deg, rgba(146, 212, 0, 0.3) 0%, rgba(146, 212, 0, 0.15) 40%, rgba(0, 0, 0, 0.4) 70%, rgba(146, 212, 0, 0.1) 100%)',
-              height: 'calc(100vh - 685px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            <CardBody style={{ padding: '1.25rem' }}>
-              <Flex direction={{ default: 'column' }} gap={{ default: 'gapSm' }} alignItems={{ default: 'alignItemsCenter' }}>
-                <FlexItem>
-                  <div style={{
-                    color: '#fff',
-                    fontSize: '2.5rem',
-                    fontWeight: 700,
-                    textAlign: 'center'
-                  }}>
-                    0 CVE's!
-                  </div>
-                </FlexItem>
-                <FlexItem>
-                  <span style={{ fontSize: '0.875rem', textAlign: 'center', color: '#ccc' }}>
-                    This image has no known vulnerabilities
-                  </span>
-                </FlexItem>
-                <FlexItem>
-                  <Flex direction={{ default: 'column' }} gap={{ default: 'gapSm' }} alignItems={{ default: 'alignItemsCenter' }} style={{ marginTop: '0.5rem' }}>
-                    <FlexItem>
-                      <span style={{ fontSize: '0.75rem', color: '#999' }}>
-                        Last scanned: <strong style={{ color: '#ccc' }}>Nov 26, 2:30 PM</strong>
-                      </span>
-                    </FlexItem>
-                    <FlexItem>
-                      <span style={{ fontSize: '0.75rem', color: '#999' }}>
-                        Last updated: <strong style={{ color: '#ccc' }}>Nov 26, 10:15 AM</strong>
-                      </span>
-                    </FlexItem>
-                  </Flex>
-                </FlexItem>
-              </Flex>
-            </CardBody>
-          </Card>
+          <CompassPanel isThinking={isScanning}>
+            <Card 
+              isPlain
+              style={{ 
+                background: 'linear-gradient(135deg, rgba(146, 212, 0, 0.3) 0%, rgba(146, 212, 0, 0.15) 40%, rgba(0, 0, 0, 0.4) 70%, rgba(146, 212, 0, 0.1) 100%)',
+                height: 'calc(100vh - 685px)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <CardBody style={{ padding: '1.25rem' }}>
+                <Flex direction={{ default: 'column' }} gap={{ default: 'gapSm' }} alignItems={{ default: 'alignItemsCenter' }}>
+                  <FlexItem>
+                    <div style={{
+                      color: '#fff',
+                      fontSize: '2.5rem',
+                      fontWeight: 700,
+                      textAlign: 'center'
+                    }}>
+                      0 CVE's!
+                    </div>
+                  </FlexItem>
+                  <FlexItem>
+                    <span style={{ fontSize: '0.875rem', textAlign: 'center', color: '#ccc' }}>
+                      This image has no known vulnerabilities
+                    </span>
+                  </FlexItem>
+                  <FlexItem>
+                    <Flex direction={{ default: 'column' }} gap={{ default: 'gapSm' }} alignItems={{ default: 'alignItemsCenter' }} style={{ marginTop: '0.5rem' }}>
+                      <FlexItem>
+                        <span style={{ fontSize: '0.75rem', color: '#999' }}>
+                          Last scanned: <strong style={{ color: '#ccc' }}>{formatElapsedTime(elapsedSeconds)} ago</strong>
+                        </span>
+                      </FlexItem>
+                      <FlexItem>
+                        <span style={{ fontSize: '0.75rem', color: '#999' }}>
+                          Last updated: <strong style={{ color: '#ccc' }}>Nov 26, 10:15 AM</strong>
+                        </span>
+                      </FlexItem>
+                    </Flex>
+                  </FlexItem>
+                  <FlexItem>
+                    <Button 
+                      variant="link" 
+                      size="sm" 
+                      onClick={() => setIsScanning(true)}
+                      isDisabled={isScanning}
+                      style={{ color: '#92d400' }}
+                    >
+                      {isScanning ? 'Scanning...' : 'Rescan'}
+                    </Button>
+                  </FlexItem>
+                </Flex>
+              </CardBody>
+            </Card>
+          </CompassPanel>
         </GridItem>
       </Grid>
     </CompassContent>
